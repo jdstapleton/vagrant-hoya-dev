@@ -25,9 +25,9 @@ package { 'tree':
 package { 'vim':
   ensure => installed,
 }
-package { 'protobuf-compiler':
-  ensure => installed,
-}
+#package { 'protobuf-compiler':
+#  ensure => installed,
+#}
 
 define wwwTarInstall ($installedName = $title, $url, $basePath, $linkName, $tarFileName) {
   exec {"/tmp/vagrant-cache/www/$tarFileName":
@@ -83,6 +83,12 @@ wwwTarInstall {'accumulo-1.7.0-SNAPSHOT':
   basePath    => '/opt',
   tarFileName => 'accumulo-1.7.0-SNAPSHOT-bin.tar.gz',
   linkName    => 'accumulo',
+}
+wwwTarInstall {'protobuf-2.5.0':
+  url         => 'http://tasermonkeys.com/protobuf-2.5.0-vagrant-precise64-bin.tar.gz',
+  basePath    => '/opt',
+  tarFileName => 'protobuf-2.5.0-vagrant-precise64-bin.tar.gz',
+  linkName    => 'protobuf',
 }
 
 file {'/opt/zookeeper/conf/zoo.cfg':
