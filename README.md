@@ -5,6 +5,8 @@ Vagrant vm for hoya development
 
 Usage:
 
+1. Install Vagrant
+  * See http://www.vagrantup.com/
 1. Checkout this repository
 1. Install cachier
   * See http://fgrehm.viewdocs.io/vagrant-cachier
