@@ -6,6 +6,10 @@ exec { "apt-update":
 Exec["apt-update"] -> Package <| |>
 
 # pretty common build tools
+package {'openjdk-7-jdk':
+  ensure => installed,
+}
+
 package {'curl':
   ensure => installed,
 }
@@ -19,6 +23,9 @@ package { 'tree':
   ensure => installed,
 }
 package { 'vim':
+  ensure => installed,
+}
+package { 'protobuf-compiler':
   ensure => installed,
 }
 
@@ -185,36 +192,7 @@ exec { 'lein':
 
 
 
-#####################
-####
-####   Install java-7 from oracle
-#### 
-#####################
-# define a variable for the webupd8team ppa sources list
 
-class java {
-class { 'apt': }
-# Add PPA
-apt::ppa { 'ppa:webupd8team/java': } ->
-# Prepare response file
-file { "/tmp/oracle-java7-installer.preseed":
-content => 'oracle-java7-installer shared/accepted-oracle-license-v1-1 select true 
-oracle-java7-installer shared/accepted-oracle-license-v1-1 seen true',
-mode => 600,
-backup => false,
-} ->
-# Install Java
-package { "oracle-java7-installer":
-ensure => "installed",
-responsefile => '/tmp/oracle-java7-installer.preseed'
-} ->
-package { "oracle-java7-set-default": ensure => "installed" }
-}
-#####################
-####
-####   END Install java-7 from oracle
-#### 
-#####################
 
 
 
