@@ -29,6 +29,21 @@ package { 'vim':
 #  ensure => installed,
 #}
 
+file { "/tmp/vagrant-cache":
+  owner   => "vagrant",
+  group   => "vagrant",
+  ensure  => "directory",
+  mode    => 755,
+}
+
+file { "/tmp/vagrant-cache/www":
+  owner   => "vagrant",
+  group   => "vagrant",
+  ensure  => "directory",
+  mode    => 755,
+}
+
+
 define wwwTarInstall ($installedName = $title, $url, $basePath, $linkName, $tarFileName) {
   exec {"/tmp/vagrant-cache/www/$tarFileName":
 	command => "curl -o /tmp/vagrant-cache/www/$tarFileName $url",
