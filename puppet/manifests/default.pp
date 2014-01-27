@@ -25,7 +25,7 @@ package { 'tree':
 package { 'vim':
   ensure => installed,
 }
-#The version of protobuf in the yum repo is too old.  
+#The version of protobuf in the apt-get repo is too old.  
 #package { 'protobuf-compiler':
 #  ensure => installed,
 #}
@@ -102,7 +102,7 @@ wwwTarInstall {'accumulo-1.7.0-SNAPSHOT':
   linkName    => 'accumulo',
 }
 #####
-##  The version of protobuf in the yum repo is too old.  This is a precompiled binary that 
+##  The version of protobuf in the apt-get repo is too old.  This is a precompiled binary that 
 ##  I compiled just for this VM (vagrant base image for precise64).  Its a statically linked
 ##  binary to make it easy to distribute.
 #####
