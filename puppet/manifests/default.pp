@@ -25,6 +25,7 @@ package { 'tree':
 package { 'vim':
   ensure => installed,
 }
+#The version of protobuf in the yum repo is too old.  
 #package { 'protobuf-compiler':
 #  ensure => installed,
 #}
@@ -41,6 +42,7 @@ file { "/tmp/vagrant-cache/www":
   group   => "vagrant",
   ensure  => "directory",
   mode    => 755,
+  require => File["/tmp/vagrant-cache"]
 }
 
 
@@ -49,7 +51,7 @@ define wwwTarInstall ($installedName = $title, $url, $basePath, $linkName, $tarF
 	command => "curl -o /tmp/vagrant-cache/www/$tarFileName $url",
 	unless => "[ -f /tmp/vagrant-cache/www/$tarFileName ]",
 	provider => 'shell',
-        require  => Package['curl'],
+        require  => [Package['curl'],File["/tmp/vagrant-cache/www"]],
   }
   exec {"$basePath/$installedName":
 	command => "tar --no-same-owner -C $basePath -zxf  /tmp/vagrant-cache/www/$tarFileName",
@@ -99,6 +101,11 @@ wwwTarInstall {'accumulo-1.7.0-SNAPSHOT':
   tarFileName => 'accumulo-1.7.0-SNAPSHOT-bin.tar.gz',
   linkName    => 'accumulo',
 }
+#####
+##  The version of protobuf in the yum repo is too old.  This is a precompiled binary that 
+##  I compiled just for this VM (vagrant base image for precise64).  Its a statically linked
+##  binary to make it easy to distribute.
+#####
 wwwTarInstall {'protobuf-2.5.0':
   url         => 'http://tasermonkeys.com/protobuf-2.5.0-vagrant-precise64-bin.tar.gz',
   basePath    => '/opt',
