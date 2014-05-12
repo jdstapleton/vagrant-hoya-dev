@@ -16,6 +16,10 @@ package {'curl':
 package { 'git':
   ensure  => installed,
 }
+package { 'git-flow': 
+  ensure  => installed,
+  require => Package['git'],
+}
 package { 'man':
   ensure => installed,
 }
